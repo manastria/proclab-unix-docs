@@ -3,6 +3,9 @@ site_description: Activité pédagogique pour comprendre les processus Linux
 repo_url: https://github.com/manastria/proclab-unix-docs
 repo_name: proclab-unix-docs
 
+extra_css:
+    - stylesheets/extra.css
+
 theme:
     name: material
     language: fr
@@ -13,9 +16,22 @@ theme:
         - navigation.top
         - toc.integrate
         - content.code.copy
+    font:
+        text: Roboto
+        code: Roboto Mono
     palette:
-        scheme: default
-
+        - scheme: default
+          primary: indigo
+          accent: indigo
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        - scheme: slate
+          primary: indigo
+          accent: indigo
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
 
 markdown_extensions:
     - pymdownx.highlight:
