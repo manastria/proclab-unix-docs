@@ -1,17 +1,41 @@
-# Welcome to MkDocs
+# Découverte pratique de la gestion des processus sous Linux
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Cette activité pédagogique vous permettra de découvrir et comprendre comment fonctionnent les processus sous Linux à travers une approche expérimentale.
 
-## Commands
+## Présentation
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+La gestion des processus est un concept fondamental dans les systèmes d'exploitation de type Unix. Au lieu d'aborder ce sujet de manière théorique, nous vous proposons une approche pratique : vous allez manipuler, observer et expérimenter avec des processus réels grâce au programme `proclab`.
 
-## Project layout
+À travers une série d'exercices guidés, vous découvrirez :
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+- Comment les processus interagissent avec le terminal
+- La gestion des processus en avant-plan et arrière-plan
+- Les états particuliers comme les processus zombies et orphelins
+- L'impact des priorités sur l'exécution des processus
+
+## Organisation de l'activité
+
+L'activité est structurée en plusieurs scénarios progressifs. Chaque scénario vous permet d'explorer un aspect particulier des processus Unix. Vous commencerez par des manipulations simples avant d'aborder des concepts plus avancés.
+
+Un système d'aide contextuelle est intégré au programme `proclab`. Si vous êtes bloqué, vous pouvez utiliser les signaux `SIGUSR1` et `SIGUSR2` pour obtenir des indices et des informations sur l'état actuel du programme.
+
+## Prérequis 
+
+Pour suivre cette activité, vous devez :
+
+- Disposer d'un système Linux (Lubuntu recommandé)
+- Être à l'aise avec l'utilisation basique du terminal
+- Connaître les commandes élémentaires Linux
+
+Nous vous recommandons d'utiliser le terminal **Terminator** qui permet d'avoir plusieurs terminaux dans la même fenêtre, ce qui sera très utile pour certains exercices.
+
+## Comment débuter ?
+
+1. Commencez par lire la section [Installation](installation.md) pour mettre en place votre environnement
+2. Suivez ensuite les scénarios dans l'ordre proposé dans la section [Activités](activites/index.md)
+3. Consultez les [Ressources](ressources/processus.md) pour approfondir vos connaissances
+
+N'hésitez pas à expérimenter au-delà des scénarios proposés. L'objectif est de comprendre par la pratique comment fonctionnent les processus sous Linux.
+
+!!! tip "Conseil"
+    Gardez un terminal ouvert avec la commande `ps` pour observer l'état de vos processus tout au long des exercices. Cela vous aidera à mieux comprendre ce qui se passe à chaque étape.
