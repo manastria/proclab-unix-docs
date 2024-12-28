@@ -44,7 +44,7 @@ Une fois installé, vous pouvez lancer Terminator de deux façons :
 4. Déplacez le programme vers un répertoire système :
 
    ```bash
-   sudo mv proclab /usr/local/bin/
+   mv proclab ~/bin/
    ```
 
 ### Étape 2 : Vérification

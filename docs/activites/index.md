@@ -92,4 +92,4 @@ En parallèle des activités pratiques, vous pouvez consulter :
 ## Prêt à commencer ?
 
 [Démarrez avec le premier scénario →](terminal.md)
-{: .md-button .md-button--primary }
+{ .md-button }
