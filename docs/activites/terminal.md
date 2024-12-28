@@ -17,6 +17,7 @@ Dans ce premier scénario, nous allons explorer la relation entre les terminaux 
 Un **processus** (*process*) est un programme en cours d'exécution. Mais cette définition technique ne suffit pas à comprendre ce concept essentiel. Prenons une première analogie simple pour commencer :
 
 Dans un restaurant, chaque table occupée représente un processus différent :
+
 - La table a son propre espace (la mémoire allouée au processus)
 - Les clients ont leur propre commande (les instructions du programme)
 - Chaque table a un numéro unique (comme le PID - *Process IDentifier*)
@@ -25,6 +26,7 @@ Dans un restaurant, chaque table occupée représente un processus différent :
     Cette image du restaurant va s'enrichir au fil des scénarios. Nous verrons comment l'organisation complète d'un restaurant (serveurs, maître d'hôtel, chef de salle...) nous aide à comprendre la gestion des processus dans son ensemble. Si vous êtes curieux, vous pouvez déjà consulter [l'analogie complète du restaurant](../ressources/analogie-restaurant.md), mais ne vous inquiétez pas si certains concepts ne sont pas encore clairs - nous les découvrirons progressivement.
 
 En informatique, lorsque vous lancez un programme comme `firefox` ou notre `proclab`, le système d'exploitation :
+
 1. Crée un nouvel espace en mémoire
 2. Attribue un numéro unique (PID) au processus
 3. Charge le programme dans cet espace
