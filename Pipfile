@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-mkdocs-material = "*"
-mkdocs-material-extensions = "*"
-pymdown-extensions = "*"
+mkdocs-material = ">=9.5,<10.0"  # Restriction à la version 9
+mkdocs-material-extensions = "*"  # Adapter en fonction de la compatibilité avec mkdocs-material 9
+pymdown-extensions = "*"  # Adapter également pour éviter les conflits
 
 [dev-packages]
 
