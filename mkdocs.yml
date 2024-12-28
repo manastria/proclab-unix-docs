@@ -5,7 +5,8 @@ repo_name: proclab-unix-docs
 
 extra_css:
     - stylesheets/extra.css
-
+extra_javascript:
+    - assets/extra.js
 theme:
     name: material
     language: fr
@@ -60,7 +61,6 @@ markdown_extensions:
 plugins:
     - search:
           lang: fr
-
 nav:
     - Accueil: index.md
     - Installation: installation.md
