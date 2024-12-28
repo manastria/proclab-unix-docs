@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "redhat.vscode-yaml",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "github.vscode-github-actions"
     ]
 }
