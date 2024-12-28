@@ -1,1 +1,68 @@
-site_name: My Docs
+site_name: Découverte pratique de la gestion des processus sous Linux
+site_description: Activité pédagogique pour comprendre les processus Linux
+repo_url: https://github.com/manastria/proclab-unix-docs
+repo_name: proclab-unix-docs
+
+theme:
+    name: material
+    language: fr
+    features:
+        - navigation.tabs
+        - navigation.sections
+        - navigation.indexes
+        - navigation.top
+        - toc.integrate
+        - content.code.copy
+    palette:
+        - scheme: default
+          primary: indigo
+          accent: indigo
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        - scheme: slate
+          primary: indigo
+          accent: indigo
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
+
+markdown_extensions:
+    - pymdownx.highlight:
+          anchor_linenums: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                format: !!python/name:pymdownx.superfences.fence_code_format
+    - admonition
+    - pymdownx.details
+    - footnotes
+    - attr_list
+    - def_list
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - pymdownx.emoji:
+          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+    - search:
+          lang: fr
+
+nav:
+    - Accueil: index.md
+    - Installation: installation.md
+    - Activités:
+          - Introduction: activites/index.md
+          - Terminal et processus: activites/terminal.md
+          - Gestion Foreground/Background: activites/fg-bg.md
+          - Processus zombies: activites/zombie.md
+          - Processus orphelins: activites/orphelin.md
+          - Priorités: activites/priorites.md
+    - Ressources:
+          - Processus Unix: ressources/processus.md
+          - Signaux: ressources/signaux.md
+          - Commandes: ressources/commandes.md
