@@ -70,6 +70,7 @@ nav:
           - Introduction: activites/index.md
           - Terminal et processus: activites/terminal.md
           - Gestion Foreground/Background: activites/fg-bg.md
+          - Les états des processus: activites/etats.md
           - Processus zombies: activites/zombie.md
           - Processus orphelins: activites/orphelin.md
           - Priorités: activites/priorites.md
