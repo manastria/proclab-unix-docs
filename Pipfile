@@ -7,6 +7,7 @@ name = "pypi"
 mkdocs-material = ">=9.4,<9.5"  # Restriction à la version 9
 mkdocs-material-extensions = "*"  # Adapter en fonction de la compatibilité avec mkdocs-material 9
 pymdown-extensions = "*"  # Adapter également pour éviter les conflits
+mkdocs-git-revision-date-localized-plugin = "*"
 
 [dev-packages]
 
