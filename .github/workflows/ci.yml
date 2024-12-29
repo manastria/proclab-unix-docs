@@ -36,5 +36,10 @@ jobs:
           pip install pipenv
           pipenv install --system --deploy
 
+      - name: Build MkDocs with minification
+        env:
+          ENABLE_MINIFY: true
+        run: mkdocs build
+
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
