@@ -9,6 +9,7 @@ extra_javascript:
     - assets/extra.js
 theme:
     name: material
+    custom_dir: overrides
     language: fr
     features:
         - navigation.tabs
@@ -37,6 +38,7 @@ theme:
               name: Switch to light mode
 
 markdown_extensions:
+    - markdown.extensions.extra
     - pymdownx.highlight:
           anchor_linenums: true
     - pymdownx.inlinehilite
@@ -63,6 +65,18 @@ markdown_extensions:
 plugins:
     - search:
           lang: fr
+    - minify:
+          minify_html: !ENV [ENABLE_MINIFY, true]
+          minify_js: !ENV [ENABLE_MINIFY, true]
+          minify_css: !ENV [ENABLE_MINIFY, true]
+          htmlmin_opts:
+              remove_comments: !ENV [ENABLE_MINIFY, true]
+          cache_safe: !ENV [ENABLE_MINIFY, true]
+          js_files:
+              - assets/extra.js
+          css_files:
+              - stylesheets/extra.css
+
 nav:
     - Accueil: index.md
     - Installation: installation.md
