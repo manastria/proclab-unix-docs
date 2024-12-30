@@ -83,8 +83,10 @@ nav:
     - Activités:
           - Introduction: activites/index.md
           - Terminal et processus: activites/terminal.md
+          - Arborescence: activites/arbo.md
           - Gestion Foreground/Background: activites/fg-bg.md
           - Les états des processus: activites/etats.md
+          - Les signaux: activites/signal.md
           - Processus zombies: activites/zombie.md
           - Processus orphelins: activites/orphelin.md
           - Priorités: activites/priorites.md
