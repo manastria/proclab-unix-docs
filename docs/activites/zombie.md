@@ -1,4 +1,4 @@
-# Activité pédagogique : Comprendre les processus zombie
+# Scénario : Processus zombies
 
 ## Objectif pédagogique
 

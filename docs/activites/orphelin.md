@@ -1,4 +1,4 @@
-# Activité pédagogique : Comprendre les processus orphelins
+# Scénario : Processus orphelins
 
 ## Objectif pédagogique
 

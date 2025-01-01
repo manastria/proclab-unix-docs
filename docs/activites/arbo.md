@@ -1,4 +1,4 @@
-# Activité pédagogique : Observer et comprendre l’arborescence des processus
+# Scénario : Arborescence des processus
 
 ## Objectif pédagogique
 
@@ -194,4 +194,3 @@ Imaginez l’arborescence des processus comme un arbre généalogique :
 
 > **Réponse attendue :** 2.  
 
-Cette activité est conçue pour introduire l’arborescence des processus tout en familiarisant les étudiants avec des outils et alias pratiques pour l’analyse quotidienne.  

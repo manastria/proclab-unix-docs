@@ -1,4 +1,4 @@
-# Activité pédagogique : Comprendre et manipuler les signaux sous Linux
+# Scénario : Signaux
 
 ---
 

@@ -17,8 +17,6 @@ La gestion des processus est un concept fondamental dans les systèmes d'exploit
 
 L'activité est structurée en plusieurs scénarios progressifs. Chaque scénario vous permet d'explorer un aspect particulier des processus Unix. Vous commencerez par des manipulations simples avant d'aborder des concepts plus avancés.
 
-Un système d'aide contextuelle est intégré au programme `proclab`. Si vous êtes bloqué, vous pouvez utiliser les signaux `SIGUSR1` et `SIGUSR2` pour obtenir des indices et des informations sur l'état actuel du programme.
-
 ## Prérequis 
 
 Pour suivre cette activité, vous devez :

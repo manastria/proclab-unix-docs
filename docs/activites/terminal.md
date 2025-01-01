@@ -1,4 +1,4 @@
-# Scénario 1 : Terminal et processus
+# Scénario : Terminal et processus
 
 Dans ce premier scénario, nous allons explorer la relation entre les terminaux et les processus sous Linux. Vous découvrirez comment les processus sont liés à leur terminal de contrôle et comment observer ces relations.
 
@@ -171,6 +171,6 @@ La relation entre un terminal et ses processus est fondamentale sous Unix :
 3. La commande `ps` permet d'observer ces relations
 4. Un terminal peut contrôler plusieurs processus
 
-## Prochaine étape
+## Pour aller plus loin
 
-Maintenant que vous maîtrisez la relation entre terminaux et processus, vous êtes prêt à explorer la [gestion des processus en avant-plan et en arrière-plan](fg-bg.md).
+Vous avez maintenant acquis les bases de la relation entre terminaux et processus sous Linux. Ces connaissances sont essentielles pour comprendre les concepts plus avancés de la gestion des processus que nous allons explorer dans les prochains scénarios.

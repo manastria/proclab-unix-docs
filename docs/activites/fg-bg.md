@@ -1,4 +1,4 @@
-# Scénario 2 : Gestion Foreground/Background
+# Scénario : Gestion Foreground/Background
 
 Ce scénario vous permettra de découvrir comment Unix gère l'exécution simultanée de plusieurs processus dans un même terminal. Vous apprendrez à manipuler les processus entre le **premier plan** (*foreground*) et l'**arrière-plan** (*background*), et vous comprendrez comment le système permet cette flexibilité.
 

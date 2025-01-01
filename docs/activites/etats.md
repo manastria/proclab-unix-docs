@@ -2,7 +2,7 @@
 meta.chapter: 1
 ---
 
-# Scénario 3 : Explorer les états des processus
+# Scénario : États des processus
 
 Imaginez que vous êtes un détective qui observe le comportement des processus sur votre système. Dans ce scénario, nous allons découvrir comment les processus « vivent » dans Linux, quels états ils peuvent prendre, et comment nous pouvons les observer et les influencer.
 
