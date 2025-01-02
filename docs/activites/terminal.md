@@ -155,42 +155,93 @@ Cette fois, nous obtenons :
 
 ```mermaid
 graph TD
-    A[Terminal pts/0] --> B[proclab]
-    C[Terminal pts/1] --> D[shell]
-    D --> E[ps]
+    A[Terminal pts/0] --> F[shell] --> B[proclab]
+    C[Terminal pts/1] --> D[shell] --> E[ps]
     style A fill:#f9f,stroke:#333
     style C fill:#f9f,stroke:#333
 ```
-
-
 
 ## Exercices pratiques
 
 ### Exercice 1 : Explorer les options de ps
 
-1. Testez ces différentes commandes et comparez leurs résultats :
-   ```bash
-   ps
-   ps -a
-   ps -e
-   ps -f
-   ```
+Pour comprendre progressivement les options de `ps`, nous allons les explorer une par une :
+
+1. Commencez par la commande de base :
+
+    ```bash
+    ps
+    ```
+
+    **Observez :**
+    - Combien de processus sont listés ?
+    - À quoi correspondent-ils ?
+    
+    **Indice :** Cette commande montre uniquement les processus liés à votre terminal actuel.
+
+2. Ajoutez l'option `-a` :
+
+    ```bash
+    ps -a
+    ```
+
+    **Observez :**
+    - Quels processus supplémentaires apparaissent ?
+    - Pourquoi ne voyez-vous pas votre shell (bash) ?
+    
+    **Indice :** `-a` montre les processus de tous les terminaux, sauf les "leaders de session".
+
+3. Utilisez l'option `-f` (format complet) :
+
+    ```bash
+    ps -f
+    ```
+
+    **Analysez les nouvelles colonnes :**
+
+    - UID : Qui a lancé le processus ?
+    - PPID : Quel est le processus parent ?
+    - TIME : Depuis combien de temps le processus tourne ?
    
-2. Pour chaque option, notez :
-   - Quels processus sont affichés
-   - Quelles informations supplémentaires apparaissent
-   - En quoi cette vue est utile
+   **Question :** Pourquoi le PPID est-il utile à connaître ?
+
+4. Enfin, essayez `-e` pour voir tous les processus :
+
+    ```bash
+    ps -e | grep -E "proclab|bash|terminal"
+    ```
+
+    **Note :** Nous filtrons la sortie avec `grep` pour nous concentrer sur les processus pertinents.
+    
+    **Observez :**
+
+    - Combien y a-t-il d'instances de bash ?
+    - Pouvez-vous identifier à quel terminal chacune correspond ?
+
+**Pour réfléchir :**
+
+- Quelle option de `ps` utiliseriez-vous pour :
+    - Voir uniquement vos processus ?
+    - Identifier le parent d'un processus spécifique ?
+    - Trouver tous les terminaux actifs ?
+
+**Conseil pratique :**
+Pour éviter d'être submergé par la sortie de `ps -e`, vous pouvez toujours utiliser `grep` pour filtrer les résultats :
+
+```bash
+ps -e | grep nom_du_programme
+```
 
 ### Exercice 2 : Manipuler les processus
 
 1. Dans le Terminal A :
-   - Lancez trois instances de proclab en arrière-plan
-   - Utilisez `ps` pour les identifier
-   - Notez les différents PID
+    - Lancez trois instances de proclab en arrière-plan
+    - Utilisez `ps` pour les identifier
+    - Notez les différents PID
 
 2. Dans le Terminal B :
-   - Utilisez `ps -a` pour voir tous les processus
-   - Comparez avec la sortie du Terminal A
+    - Utilisez `ps -a` pour voir tous les processus
+    - Comparez avec la sortie du Terminal A
 
 !!! question "Questions d'analyse"
     1. Pourquoi les PID sont-ils différents pour chaque instance ?
@@ -218,6 +269,7 @@ graph TD
 ## Lien avec les notions futures
 
 Dans les prochains scénarios, nous explorerons :
+
 - La gestion des processus en premier plan et en arrière-plan
 - Les signaux que le terminal peut envoyer aux processus
 - Les états des processus et leur cycle de vie
@@ -225,6 +277,7 @@ Dans les prochains scénarios, nous explorerons :
 
 !!! tip "Préparation pour la suite"
     Pour le prochain scénario sur la gestion foreground/background, réfléchissez à :
+
     - Comment le système gère plusieurs processus simultanément
     - Comment un utilisateur peut interagir avec des processus en cours d'exécution
     - Pourquoi on pourrait vouloir mettre un processus en arrière-plan
