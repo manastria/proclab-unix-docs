@@ -1,153 +1,233 @@
 # Scénario : Arborescence des processus
 
-## Objectif pédagogique
+## Objectifs d'apprentissage
 
-Apprendre à observer, comprendre et analyser l’**arborescence des processus** sous Linux.  
-Les étudiants utiliseront des commandes comme `ps`, `pstree` et `htop`, ainsi que des alias pratiques, pour visualiser les relations parent-enfant entre processus.
+À la fin de ce scénario, vous serez capable de :
 
-## 1. Introduction : Qu’est-ce qu’une arborescence de processus ?
+- Comprendre ce qu'est une arborescence de processus
+- Visualiser les relations parent-enfant entre les processus
+- Utiliser les commandes `ps`, `pstree` et `htop` pour observer l'arborescence
+- Identifier le parent d'un processus donné
 
-### **Définition**  
+## Concepts fondamentaux
 
-Dans Linux, les processus sont organisés sous forme d’**arborescence**. Chaque processus (enfant) est créé par un autre processus (parent), et cette hiérarchie remonte au processus système `init` (ou `systemd`), qui est l'ancêtre de tous les processus.
+### Les identifiants de processus
 
-### **Concept clé**  
+Sous Linux, chaque processus est identifié par deux numéros importants :
 
-- Le **PID** (*Process ID*) est un identifiant unique pour chaque processus.  
-- Le **PPID** (*Parent Process ID*) identifie le parent du processus.  
-- L’arborescence permet de visualiser les relations parent-enfant, ce qui est essentiel pour comprendre la gestion des processus.  
+- Le **PID** (*Process ID*) est un identifiant unique pour chaque processus.
 
-### **Analogie**  
+  ```bash
+  # Exemple : chaque processus a un PID différent
+  PID 1234 : firefox
+  PID 1235 : terminal
+  PID 1236 : bash
+  ```
 
-Imaginez l’arborescence des processus comme un arbre généalogique :  
+- Le **PPID** (*Parent Process ID*) identifie le parent du processus.
 
-- `init` ou `systemd` est l'ancêtre commun (la racine).  
-- Chaque parent peut avoir plusieurs enfants (branches).  
-- Les feuilles représentent les processus terminaux, sans enfants.
+  ```bash
+  # Exemple : le PPID indique quel processus est le parent
+  PID 1236 (bash) → PPID 1235 (terminal)
+  ```
 
-## 2. Expérimentation guidée
+!!! tip "Pour bien comprendre"
+    - Le PID, c'est comme votre numéro d'étudiant : il est unique et vous identifie.
+    - Le PPID, c'est comme le numéro de votre classe : il indique à quel groupe vous appartenez.
+
+### Qu'est-ce qu'une arborescence de processus ?
+
+Une **arborescence de processus** (*process tree*) est la représentation des relations entre les processus sous Linux, où chaque processus est créé par un autre processus (son parent).
+
+!!! example "L'analogie de l'entreprise"
+    Imaginez une entreprise avec son organigramme :
+
+    - Le PDG (comme le processus `init` ou `systemd`) est au sommet
+    - Les managers (processus parents) supervisent leurs équipes
+    - Les employés (processus enfants) travaillent sous la direction des managers
+    - Chaque employé sait qui est son responsable (comme le PPID - Parent Process ID)
+
+    **Question de réflexion :** En quoi cette hiérarchie aide-t-elle à organiser le travail ?
+
+    **Indices pour la réflexion :**
+    - Que se passe-t-il quand un employé a un problème ? À qui s'adresse-t-il ?
+    - Comment le PDG sait-il ce qui se passe dans l'entreprise ?
+    - Pourquoi est-il important de savoir qui est responsable de qui ?
+
+### Les concepts clés
+
+1. **Le processus init/systemd (PID 1)**
+    - C'est l'ancêtre de tous les processus
+    - Il démarre automatiquement au démarrage du système
+    - Il adopte les processus orphelins
+
+2. **La relation parent-enfant**
+    - Chaque processus (sauf `init`) a un parent
+    - Un processus peut créer plusieurs enfants
+    - On parle de "fork" quand un processus crée un enfant
+
+
+
+!!! question "Questions préliminaires"
+    Avant de commencer les manipulations, réfléchissons :
+
+    1. Pourquoi est-il important de connaître les relations entre les processus ?
+
+        **Pour vous aider :**
+
+        - Dans une famille, pourquoi est-il important de savoir qui sont les parents de chaque enfant ?
+        - Si un parent ne rentre pas à la maison, qui doit s'occuper des enfants ?
+        - Quand un processus a un problème, pourquoi est-il utile de savoir qui l'a créé ?
+
+        **Exemple concret :**
+
+        Quand une application plante, le système doit :
+
+        - Informer le processus parent du problème
+        - Permettre au parent de gérer la situation
+        - S'assurer qu'aucune ressource n'est perdue
+
+    2. Que se passe-t-il quand un processus parent se termine ?
+
+        **Indices :**
+
+        - Que devient une équipe quand son manager quitte l'entreprise ?
+        - Qui doit s'occuper des "employés" restants ?
+
+
+
+
+
+## Mise en pratique
 
 ### Préparation
 
-1. **Ouvrir Terminator**  
-   Divisez votre terminal en deux colonnes (cliquez droit → « Split vertically »).  
-   - Terminal gauche : Lancez le programme de démonstration.  
-   - Terminal droit : Explorez l’arborescence des processus.  
+1. Ouvrez deux terminaux côte à côte dans Terminator (++ctrl+shift+e++)
+2. Terminal gauche : pour lancer les programmes
+3. Terminal droit : pour observer l'arborescence
 
-2. **Lancer le programme**  
-   Dans le terminal gauche, exécutez le programme pédagogique pour créer une arborescence de processus :  
+### Étape 1 : Observer une arborescence simple
 
+1. Dans le terminal gauche, lancez :
+    ```bash
+    procarbo --depth 2 --width 2
+    ```
+ 
+    Les options permettent de limiter la profondeur et la largeur de l'arborescence.
+
+2. Dans le terminal droit, observez avec :
+    ```bash
+    ps --forest
+    ```
+
+!!! exercise "Exercice d'observation"
+    1. Observez la sortie de `ps --forest`. Que représentent les caractères `─┬─` et `└─` ?
+       
+        **Aide visuelle :**
+        ```
+        parent─┬─enfant1
+               └─enfant2
+        ```
+        
+        - Les lignes verticales montrent les relations
+        - Les lignes horizontales relient parents et enfants
+    
+    2. Combien de niveaux de processus voyez-vous ?
+       
+       **Pour compter les niveaux :**
+       - Commencez par le processus parent
+       - Suivez les lignes vers la droite
+       - Chaque décalage représente un nouveau niveau
+
+### Étape 2 : Explorer avec pstree
+
+1. Utilisez la commande :
    ```bash
-   procarbo
+   pstree -p
    ```
 
-### Étape 1 : Observer les processus avec `ps`
+!!! exercise "Analyse de l'arborescence"
+    1. Que signifient les nombres entre parenthèses ?
+       
+       **Indice :** Comparez avec les PID affichés par `ps`
+    
+    2. Pourquoi certains processus apparaissent-ils plusieurs fois ?
+       
+       **Pour comprendre :**
+       - Pensez à un employé qui travaille dans plusieurs équipes
+       - Est-ce le même processus ou des processus différents ?
 
-1. **Lister les processus actifs**  
-    Dans le terminal droit, utilisez la commande suivante pour afficher les processus en cours :  
+1. **Lister les processus actifs**
+    Dans le terminal droit, utilisez la commande suivante pour afficher les processus en cours :
 
     ```bash
     psess
     ```
 
-    **Explications :**  
-    - `psess` est un alias qui affiche les colonnes essentielles pour analyser les processus :  
-        - `PPID` : PID du processus parent.  
-        - `PID` : Identifiant du processus.  
-        - `STAT` : État du processus (Running, Sleeping, etc.).  
-        - `TTY` : Terminal associé au processus.  
-        - `USER` : Utilisateur propriétaire.  
-        - `CMD` : Commande utilisée pour démarrer le processus.  
+    <!-- TODO: Indiquer aux étudiants d'où vient l'alias `psess` -->
 
-    **Question :** Quels sont les PID et PPID des processus créés par le programme `procarbo` ?  
+    **Explications :**
+    - `psess` est un alias qui affiche les colonnes essentielles pour analyser les processus :
+        - `PPID` : PID du processus parent.
+        - `PID` : Identifiant du processus.
+        - `STAT` : État du processus (Running, Sleeping, etc.).
+        - `TTY` : Terminal associé au processus.
+        - `USER` : Utilisateur propriétaire.
+        - `CMD` : Commande utilisée pour démarrer le processus.
 
-2. **Afficher l’arborescence des processus**  
-    Pour visualiser les relations entre processus, utilisez la commande suivante :  
+    **Question :** Quels sont les PID et PPID des processus créés par le programme `procarbo` ?
 
-    ```bash
-    ps --forest
-    ```
 
-    **Explications :**  
-    - `--forest` : Ajoute une arborescence graphique en ASCII pour représenter les relations parent-enfant.  
-
-    **Question :** Où se trouve le processus principal du programme `procarbo` dans l’arborescence ?  
-
-### Étape 2 : Visualiser l’arborescence avec `pstree`
-
-1. **Afficher l’arborescence complète**  
-    Dans le terminal droit, utilisez l’alias `treeproc` :  
-
-    ```bash
-    treeproc
-    ```
-
-    **Explications :**  
-    - `pstree` : Affiche l’arborescence complète des processus en cours.  
-    - `-p` : Ajoute les PID à chaque processus.  
-    - `-c` : Désactive le regroupement des processus similaires.  
-    - `-l` : Affiche les noms longs sans les tronquer.  
-
-    **Question :** Combien d’enfants et de petits-enfants le programme `procarbo` a-t-il créés ?  
-
-2. **Afficher l’arborescence autour du shell courant**  
-    Utilisez l’alias `stree` pour ne voir que les processus liés à votre shell :  
-
-    ```bash
-    stree
-    ```
-
-    **Question :** Quels processus sont directement liés à votre terminal ?  
 
 ### Étape 3 : Analyser les processus liés à Terminator
 
-1. **Observer les processus enfants de Terminator**  
-    Utilisez l’alias `termtree` pour afficher les processus enfants de Terminator :  
+1. **Observer les processus enfants de Terminator**
+    Utilisez l’alias `termtree` pour afficher les processus enfants de Terminator :
 
     ```bash
     termtree
     ```
 
-    **Question :** Quels processus sont créés spécifiquement par Terminator ?  
+    **Question :** Quels processus sont créés spécifiquement par Terminator ?
 
 ### Étape 4 : Explorer l’arborescence avec `htop`
 
-1. **Lancer `htop`**  
-    Dans le terminal droit, exécutez :  
+1. **Lancer `htop`**
+    Dans le terminal droit, exécutez :
 
     ```bash
     htop
     ```
 
-    **Explications :**  
-    - `htop` : Outil interactif pour surveiller les processus.  
-    - Utilisez la touche ++f5++ pour afficher les processus en mode arborescence.  
-    - Naviguez avec les flèches pour explorer les relations parent-enfant.  
+    **Explications :**
+    - `htop` : Outil interactif pour surveiller les processus.
+    - Utilisez la touche ++f5++ pour afficher les processus en mode arborescence.
+    - Naviguez avec les flèches pour explorer les relations parent-enfant.
 
-    **Question :** Quel est le PID de `procarbo` et comment ses enfants sont-ils affichés dans `htop` ?  
+    **Question :** Quel est le PID de `procarbo` et comment ses enfants sont-ils affichés dans `htop` ?
 
 ## 3. Exercices pratiques
 
 ### Exercice 1 : Analyser les relations parent-enfant
 
-1. Relancez `procarbo`.  
-2. Utilisez `psess`, `treeproc` et `ps --forest` pour analyser l’arborescence des processus.  
+1. Relancez `procarbo`.
+2. Utilisez `psess`, `treeproc` et `ps --forest` pour analyser l’arborescence des processus.
 
-**Question :** Comment l’arborescence évolue lorsque vous terminez un processus enfant avec `kill` ?  
+**Question :** Comment l’arborescence évolue lorsque vous terminez un processus enfant avec `kill` ?
 
 ### Exercice 2 : Comprendre les états des processus
 
-1. Observez la colonne `STAT` dans la commande `psess`.  
-2. Identifiez les différents états (`S`, `R`, `Z`, etc.).  
+1. Observez la colonne `STAT` dans la commande `psess`.
+2. Identifiez les différents états (`S`, `R`, `Z`, etc.).
 
-**Question :** Que signifie chaque état ? Comment vérifier si un processus est en veille ou actif ?  
+**Question :** Que signifie chaque état ? Comment vérifier si un processus est en veille ou actif ?
 
 ### Exercice 3 : Expérimenter avec plusieurs instances
 
-1. Lancez plusieurs instances de `procarbo`.  
+1. Lancez plusieurs instances de `procarbo`.
 2. Utilisez `treeproc` et `psess` pour analyser les relations entre les processus.
 
-**Question :** Comment distinguer les différentes instances et leurs enfants dans l’arborescence ?  
+**Question :** Comment distinguer les différentes instances et leurs enfants dans l’arborescence ?
 
 ## 4. Tableau récapitulatif des commandes
 
@@ -160,37 +240,66 @@ Imaginez l’arborescence des processus comme un arbre généalogique :
 | `pstree ...`  | `termtree`  | Affiche les enfants de Terminator.                         | Visualiser les processus créés par Terminator.                 |
 | `htop`        | (aucun)     | Affiche un moniteur interactif des processus en arborescence. | Explorer et surveiller les processus en temps réel.            |
 
-## 5. Résumé des points clés
+## Points clés à retenir
 
-- Les processus sont organisés en arborescence, chaque processus ayant un parent (`PPID`) et pouvant avoir des enfants (`PID`).  
-- Des outils comme `ps`, `pstree` et `htop` permettent de visualiser et d’analyser cette hiérarchie.  
+- Tout processus (sauf init/systemd) a un parent
+- L'arborescence permet de visualiser les relations entre processus
+- Les processus sont organisés en arborescence, chaque processus ayant un parent (`PPID`) et pouvant avoir des enfants (`PID`).
+- Des outils comme `ps --forest`, `pstree` et `htop` permettent de visualiser et d’analyser cette hiérarchie.
 - Les alias simplifient l’utilisation des commandes complexes pour des tâches fréquentes.
+- Le PID 1 (init/systemd) est la racine de l'arbre
 
-## 6. Évaluation des connaissances
+## Évaluation des connaissances
 
 ### **Questions à choix multiples**
 
-**Q1 : Quelle commande affiche une arborescence des processus avec leurs PID ?**  
+**Q1 : Quelle commande affiche une arborescence des processus avec leurs PID ?**
 
-1. `psess`  
-2. `pstree`  
-3. `ps --forest`  
+1. `psess`
+2. `pstree`
+3. `ps --forest`
 
-> **Réponse attendue :** 2.  
+> **Réponse attendue :** 2.
 
-**Q2 : Quel alias permet d’afficher uniquement les processus enfants de Terminator ?**  
+**Q2 : Quel alias permet d’afficher uniquement les processus enfants de Terminator ?**
 
-1. `treeproc`  
-2. `stree`  
-3. `termtree`  
+1. `treeproc`
+2. `stree`
+3. `termtree`
 
-> **Réponse attendue :** 3.  
+> **Réponse attendue :** 3.
 
-**Q3 : Que signifie l’état `S` dans la colonne `STAT` des processus ?**  
+**Q3 : Que signifie l’état `S` dans la colonne `STAT` des processus ?**
 
-1. Processus actif.  
-2. Processus en veille.  
-3. Processus zombie.  
+1. Processus actif.
+2. Processus en veille.
+3. Processus zombie.
 
-> **Réponse attendue :** 2.  
+> **Réponse attendue :** 2.
 
+Q3. Qu'est-ce qu'un processus parent ?
+    - [ ] Un processus très ancien
+    - [ ] Un processus qui en crée d'autres
+    - [ ] Le premier processus du système
+       
+    **Indice :** Pensez à la relation manager-employé
+
+Q4. Quel est le rôle de init (PID 1) ?
+    
+    **Pour réfléchir :**
+    - Que se passe-t-il au démarrage du système ?
+    - Qui s'occupe des processus orphelins ?
+  
+
+## Lien avec les notions futures
+
+Dans les prochains scénarios, nous verrons :
+- Les processus zombies et orphelins
+- La communication entre processus
+- La gestion des signaux entre processus
+
+!!! tip "Préparation pour la suite"
+    Réfléchissez à :
+    - Que se passe-t-il quand un processus parent meurt avant ses enfants ?
+    - Comment les processus peuvent-ils communiquer entre eux ?
+  
