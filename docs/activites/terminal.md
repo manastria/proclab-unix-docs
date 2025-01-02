@@ -162,15 +162,69 @@ graph TD
     style C fill:#f9f,stroke:#333
 ```
 
+
+
+## Exercices pratiques
+
+### Exercice 1 : Explorer les options de ps
+
+1. Testez ces différentes commandes et comparez leurs résultats :
+   ```bash
+   ps
+   ps -a
+   ps -e
+   ps -f
+   ```
+   
+2. Pour chaque option, notez :
+   - Quels processus sont affichés
+   - Quelles informations supplémentaires apparaissent
+   - En quoi cette vue est utile
+
+### Exercice 2 : Manipuler les processus
+
+1. Dans le Terminal A :
+   - Lancez trois instances de proclab en arrière-plan
+   - Utilisez `ps` pour les identifier
+   - Notez les différents PID
+
+2. Dans le Terminal B :
+   - Utilisez `ps -a` pour voir tous les processus
+   - Comparez avec la sortie du Terminal A
+
+!!! question "Questions d'analyse"
+    1. Pourquoi les PID sont-ils différents pour chaque instance ?
+    2. Comment le système fait-il pour gérer plusieurs processus simultanément ?
+    3. Quel est le rôle du processus bash dans chaque terminal ?
+
 ## Points clés à retenir
 
-La relation entre un terminal et ses processus est fondamentale sous Unix :
+- Chaque processus a un identifiant unique (PID) et est associé à un terminal
+- Chaque terminal a un identifiant unique (`/dev/pts/X`)
+- Les terminaux permettent l'interaction entre l'utilisateur et les processus
+- La commande `ps` est essentielle pour observer et comprendre les processus
+- Un terminal peut gérer plusieurs processus simultanément
+- Les processus en arrière-plan libèrent le terminal tout en continuant à s'exécuter
 
-1. Chaque terminal a un identifiant unique (`/dev/pts/X`)
-2. Les processus héritent du terminal de leur parent
-3. La commande `ps` permet d'observer ces relations
-4. Un terminal peut contrôler plusieurs processus
+## Évaluation des connaissances
 
-## Pour aller plus loin
+!!! quiz "Quiz de compréhension"
+    1. Qu'est-ce qui identifie de manière unique un processus sous Linux ?
+    2. Quel est le rôle du terminal de contrôle ?
+    3. Comment peut-on lancer un processus en arrière-plan ?
+    4. Quelle commande permet de voir tous les processus du système ?
+    5. Pourquoi est-il important que chaque processus ait son propre espace mémoire ?
 
-Vous avez maintenant acquis les bases de la relation entre terminaux et processus sous Linux. Ces connaissances sont essentielles pour comprendre les concepts plus avancés de la gestion des processus que nous allons explorer dans les prochains scénarios.
+## Lien avec les notions futures
+
+Dans les prochains scénarios, nous explorerons :
+- La gestion des processus en premier plan et en arrière-plan
+- Les signaux que le terminal peut envoyer aux processus
+- Les états des processus et leur cycle de vie
+- Les processus zombies et orphelins
+
+!!! tip "Préparation pour la suite"
+    Pour le prochain scénario sur la gestion foreground/background, réfléchissez à :
+    - Comment le système gère plusieurs processus simultanément
+    - Comment un utilisateur peut interagir avec des processus en cours d'exécution
+    - Pourquoi on pourrait vouloir mettre un processus en arrière-plan
