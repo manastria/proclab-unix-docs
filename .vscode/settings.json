@@ -15,7 +15,10 @@
     "!!python/name:materialx.emoji.to_svg"
 ],
 "[markdown]": {
-  "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 4,
+  "editor.guides.indentation": true,
 },
 "[yaml]": {
     "editor.tabSize": 4,
@@ -25,5 +28,6 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
 },
 "editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.renderWhitespace": "all",
 "prettier.useEditorConfig": true
 }
