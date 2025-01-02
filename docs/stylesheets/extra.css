@@ -41,3 +41,15 @@
 .md-typeset h4 + * {
   margin-top: 1em;
 }
+
+
+/* Le code qui utiliser les caractères `─┬─` ou `└─` n'est pas correctement aligné par défaut. Ce style permet de remédier à cela */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap');
+
+.custom-code  code {
+  font-family: "Consolas", "Source Code Pro", monospace;
+  line-height: 1.2;
+  letter-spacing: 0; /* Suppression des espaces supplémentaires */
+  font-variant-ligatures: none; /* Désactive les ligatures */
+}
