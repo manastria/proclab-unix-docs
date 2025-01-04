@@ -112,7 +112,7 @@ Une **arborescence de processus** (*process tree*) est la représentation des re
     ```bash
     procarbo --depth 2 --width 2
     ```
- 
+
     Les options permettent de limiter la profondeur et la largeur de l'arborescence.
 
 2. Dans le terminal droit, observez avec :
@@ -122,40 +122,98 @@ Une **arborescence de processus** (*process tree*) est la représentation des re
 
 !!! exercise "Exercice d'observation"
     1. Observez la sortie de `ps --forest`. Que représentent les caractères `─┬─` et `└─` ?
-       
+
         **Aide visuelle :**
         ```
-        parent─┬─enfant1
-               └─enfant2
+        parent1─┬─enfant1
+                ├─enfant2
+                └─enfant3
+
+        parent2───enfant_unique
         ```
-        
-        - Les lignes verticales montrent les relations
-        - Les lignes horizontales relient parents et enfants
-    
+
+        **Comment lire cette représentation :**
+
+        - Le caractère `┬` indique que le processus parent a plusieurs enfants
+        - Le caractère `├` montre qu'il y a d'autres enfants qui suivent
+        - Le caractère `└` indique le dernier enfant de ce parent
+        - Les lignes `─` relient un parent à ses enfants
+
+        **Exemple concret :**
+
+        ```
+        firefox─┬─firefox (onglet 1)
+                ├─firefox (onglet 2)
+                └─firefox (onglet 3)
+        ```
+
+        Ici, le processus Firefox principal a créé trois processus enfants, un pour chaque onglet.
+
     2. Combien de niveaux de processus voyez-vous ?
-       
-       **Pour compter les niveaux :**
-       - Commencez par le processus parent
-       - Suivez les lignes vers la droite
-       - Chaque décalage représente un nouveau niveau
+
+        **Pour compter les niveaux :**
+
+        - Commencez par le processus parent
+        - Suivez les lignes vers la droite
+        - Chaque décalage représente un nouveau niveau
 
 ### Étape 2 : Explorer avec pstree
 
-1. Utilisez la commande :
-   ```bash
-   pstree -p
-   ```
+La commande `pstree` (*Process Tree*) affiche les processus sous forme d'arbre. L'option `-p` ajoute les PIDs entre parenthèses.
+
+Lancez la commande :
+```bash
+pstree -p
+```
+
+**Exemple de sortie :**
+```text { .custom-code }
+systemd(1)─┬─ModemManager(889)─┬─{ModemManager}(904)
+           │                   └─{ModemManager}(906)
+           ├─agetty(890)
+           ├─sshd(891)───sshd(23617)───bash(23619)───pstree(23620)
+           └─terminator(12567)─┬─bash(12575)───procarbo(12898)
+                               └─bash(12576)
+```
+
+**Comment lire cette sortie :**
+
+1. L'arbre commence toujours par `systemd(1)` qui est le processus initial
+   - Le chiffre 1 est son PID
+   - Tout part de ce processus racine
+
+2. Les traits représentent les relations :
+   - `┬` signifie "a plusieurs enfants"
+   - `├` signifie "un enfant, et il y en a d'autres"
+   - `└` signifie "dernier enfant"
+   - `─` connecte un parent à son enfant
+
+3. Dans cet exemple :
+   - `ModemManager(889)` gère le modem avec deux processus légers (threads)
+   - `sshd(891)` gère les connexions SSH
+   - `terminator(12567)` est notre terminal avec deux shells bash
+
+!!! info "Processus légers (threads)"
+    Les accolades comme dans `{ModemManager}` indiquent des processus légers (threads).
+    Ce sont des sous-processus qui partagent les ressources de leur parent.
+
+!!! tip "Astuce"
+    Vous pouvez filtrer l'affichage en ajoutant le PID d'un processus spécifique :
+    ```bash
+    pstree -p <PID>
+    ```
+    Cela montre uniquement l'arbre à partir de ce processus.
 
 !!! exercise "Analyse de l'arborescence"
     1. Que signifient les nombres entre parenthèses ?
-       
-       **Indice :** Comparez avec les PID affichés par `ps`
-    
+
+        **Indice :** Comparez avec les PID affichés par `ps`
+
     2. Pourquoi certains processus apparaissent-ils plusieurs fois ?
-       
-       **Pour comprendre :**
-       - Pensez à un employé qui travaille dans plusieurs équipes
-       - Est-ce le même processus ou des processus différents ?
+
+        **Pour comprendre :**
+        - Pensez à un employé qui travaille dans plusieurs équipes
+        - Est-ce le même processus ou des processus différents ?
 
 1. **Lister les processus actifs**
     Dans le terminal droit, utilisez la commande suivante pour afficher les processus en cours :
@@ -281,15 +339,15 @@ Q3. Qu'est-ce qu'un processus parent ?
     - [ ] Un processus très ancien
     - [ ] Un processus qui en crée d'autres
     - [ ] Le premier processus du système
-       
+
     **Indice :** Pensez à la relation manager-employé
 
 Q4. Quel est le rôle de init (PID 1) ?
-    
+
     **Pour réfléchir :**
     - Que se passe-t-il au démarrage du système ?
     - Qui s'occupe des processus orphelins ?
-  
+
 
 ## Lien avec les notions futures
 
@@ -302,4 +360,3 @@ Dans les prochains scénarios, nous verrons :
     Réfléchissez à :
     - Que se passe-t-il quand un processus parent meurt avant ses enfants ?
     - Comment les processus peuvent-ils communiquer entre eux ?
-  
