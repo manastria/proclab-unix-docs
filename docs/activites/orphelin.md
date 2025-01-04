@@ -102,7 +102,7 @@ Imaginez un programme (parent) qui effectue une tâche, comme surveiller un tél
 - Pourquoi le système adopte-t-il un processus orphelin ?  
   *(Indice : Cela garantit que tous les processus en cours sont supervisés.)*
 
-## 3. Exercices pratiques
+
 
 ### Exercice 1 : Comprendre la commande `ps`
 
