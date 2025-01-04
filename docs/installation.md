@@ -69,8 +69,14 @@ Si le répertoire n'est pas configuré (cas rare), voici la procédure :
 
 ### Étape 2 : Téléchargement et installation
 
-1. **[➡️ Téléchargez la dernière version de proclab](https://github.com/manastria/proclab-unix/releases/latest)**
+1. **[➡️ Accédez à la page de la dernière version](https://github.com/manastria/proclab-unix/releases/latest)**
+   - Cliquez sur "Assets" pour dérouler la liste des fichiers téléchargeables
    - Choisissez le fichier `proclab-X.Y.Z.tar.gz` (où X.Y.Z est le numéro de version)
+
+!!! info "Qu'est-ce que les 'Assets' ?"
+    Dans le contexte du développement logiciel et de GitHub, les "Assets" sont les fichiers joints à une version (*release*) d'un logiciel.
+    Il peut s'agir des exécutables, des archives, de la documentation ou d'autres ressources nécessaires.
+    C'est un terme technique couramment utilisé pour désigner les ressources ou éléments associés à un projet.
 
 2. Décompressez l'archive dans votre répertoire `~/bin` :
 
