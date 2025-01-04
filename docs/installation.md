@@ -1,13 +1,16 @@
 # Installation de proclab 🚀
 
-Pour réaliser cette activité pédagogique, vous aurez besoin d'installer deux éléments essentiels :
+Pour réaliser ces activités pédagogiques, vous aurez besoin d'installer deux éléments essentiels :
 
 1. **Terminator** - Un terminal avancé permettant d'avoir plusieurs vues
-2. **proclab** - Notre outil d'expérimentation
+2. **Les outils proclab** - Notre suite d'outils d'expérimentation
 
-## 1. Installation de Terminator 🖥️
+## 1. Terminator 🖥️
 
-Commencez par ouvrir un terminal et installez Terminator avec la commande :
+!!! info "Déjà installé ?"
+    Terminator est très probablement déjà installé sur votre système. Passez directement à la section suivante si c'est le cas !
+
+Si Terminator n'est pas installé, ouvrez un terminal et exécutez :
 
 ```bash
 sudo apt install terminator
@@ -26,67 +29,115 @@ Une fois installé, vous pouvez lancer Terminator de deux façons :
     | Fermer le terminal actif | ++ctrl+shift+w++ |
     | Naviguer entre les vues | ++ctrl+tab++ |
 
-## 2. Installation de proclab 🛠️
+## 2. Installation des outils proclab 🛠️
 
-!!! note "Pourquoi un téléchargement direct ?"
-    Nous fournissons une version pré-compilée de **proclab** pour garantir une installation rapide et une expérience identique pour tous les étudiants.
+!!! note "Pourquoi une archive précompilée ?"
+    Nous fournissons une version pré-compilée de la suite **proclab** pour garantir une installation rapide et une expérience identique pour tous les étudiants.
 
-### Étape 1 : Téléchargement
+### Étape 1 : Préparation du répertoire
 
-1. **[➡️ Téléchargez la dernière version de proclab](https://github.com/your-username/proclab-unix/releases/latest)**
-2. Ouvrez un terminal dans le dossier contenant le fichier téléchargé
-3. Rendez le fichier exécutable :
+!!! info "Configuration probablement déjà effectuée"
+    Sur votre système, le répertoire `~/bin` est très certainement déjà créé et configuré.
+    Vous pouvez le vérifier rapidement avec :
+    ```bash
+    echo $PATH | grep ~/bin
+    ```
+    Si vous voyez `~/bin` dans le résultat, tout est déjà configuré ! Passez directement à l'étape 2.
+
+Si le répertoire n'est pas configuré (cas rare), voici la procédure :
+
+1. Créez le répertoire `bin` :
 
    ```bash
-   chmod +x proclab
+   mkdir -p ~/bin
    ```
 
-4. Déplacez le programme vers un répertoire système :
+2. Ajoutez ces lignes à votre `~/.bashrc` :
 
    ```bash
-   mv proclab ~/bin/
+   # Ajout du répertoire ~/bin au PATH
+   if [ -d "$HOME/bin" ] ; then
+       PATH="$HOME/bin:$PATH"
+   fi
    ```
 
-### Étape 2 : Vérification
+3. Appliquez les changements :
 
-Pour vérifier l'installation, tapez dans votre terminal :
+   ```bash
+   source ~/.bashrc
+   ```
+
+### Étape 2 : Téléchargement et installation
+
+1. **[➡️ Téléchargez la dernière version de proclab](https://github.com/manastria/proclab-unix/releases/latest)**
+   - Choisissez le fichier `proclab-X.Y.Z.tar.gz` (où X.Y.Z est le numéro de version)
+
+2. Décompressez l'archive dans votre répertoire `~/bin` :
+
+   ```bash
+   cd ~/bin
+   tar xzf ~/Téléchargements/proclab-*.tar.gz
+   ```
+
+### Étape 3 : Vérification
+
+Testez chaque outil pour vérifier l'installation :
 
 ```bash
-proclab --version
+procarbo --version     # Outil pour l'arborescence des processus
+proclab --version     # Programme principal
+procorhpan --version  # Outil pour les processus orphelins
+procsignal --version  # Outil pour la gestion des signaux
+procstate --version   # Outil pour l'état des processus
+proczombi --version   # Outil pour les processus zombies
 ```
-
-Vous devriez voir apparaître la version du programme.
 
 ## Test complet ✅
 
 Réalisons un test rapide pour confirmer que tout fonctionne :
 
-1. **Préparation** : 
+1. **Préparation** :
     - Lancez Terminator
     - Divisez la fenêtre en deux avec ++ctrl+shift+e++
 
 2. **Test** :
-    - Terminal gauche : lancez `proclab`
-    - Terminal droit : exécutez `ps -f`
-    - ➡️ **proclab** devrait apparaître dans la liste des processus
+    Dans le terminal gauche, testez chaque outil :
+
+    ```bash
+    # Test de chaque outil
+    procarbo         # Ctrl+C pour arrêter
+    proclab          # Ctrl+C pour arrêter
+    procorhpan       # Choisir 'Quitter' dans le menu
+    procsignal       # Ctrl+C pour arrêter
+    procstate        # Ctrl+C pour arrêter
+    proczombi        # Choisir 'Quitter' dans le menu
+    ```
 
 !!! danger "Résolution des problèmes courants"
     === "Permission denied"
-        1. Vérifiez que vous avez bien exécuté `chmod +x`
-        2. Contrôlez la somme MD5 du fichier
-    
+        1. Vérifiez les permissions des fichiers :
+           ```bash
+           chmod +x ~/bin/proc*
+           ```
+        2. Contrôlez que tous les fichiers sont bien extraits
+
     === "Command not found"
-        1. Vérifiez que `/usr/local/bin` est dans votre `PATH`
-        2. Essayez de relancer votre terminal
+        1. Vérifiez que `~/bin` est dans votre PATH :
+           ```bash
+           echo $PATH | grep ~/bin
+           ```
+        2. Si non, relancez votre terminal après avoir modifié `.bashrc`
 
 ## Pour aller plus loin 🔍
 
-Le code source de **proclab** est disponible sur GitHub. Si vous souhaitez explorer son fonctionnement interne ou le compiler vous-même :
+Le code source de la suite **proclab** est disponible sur GitHub. Si vous souhaitez explorer son fonctionnement interne ou la compiler vous-même :
+
+[➡️ Code source sur GitHub](https://github.com/manastria/proclab-unix)
 
 !!! warning "Prérequis pour la compilation"
     - **Espace disque** : ~1.5 GB
-    - **Dépendances** : Rust et ses outils
-    - **Temps** : 10-15 minutes selon votre connexion
+    - **Dépendances** : gcc, make et autres outils de compilation
+    - **Temps** : 5-10 minutes selon votre système
 
 Les instructions détaillées sont disponibles dans le fichier `README.md` du dépôt.
 
@@ -94,4 +145,4 @@ Les instructions détaillées sont disponibles dans le fichier `README.md` du d�
 
 ## Prêt à commencer ? 🎯
 
-Une fois **proclab** installé, vous pouvez débuter les activités. Direction le [premier scénario](activites/terminal.md) qui vous familiarisera avec les concepts de base !
+Une fois la suite **proclab** installée, vous pouvez débuter les activités. Direction le [premier scénario](activites/terminal.md) qui vous familiarisera avec les concepts de base !
